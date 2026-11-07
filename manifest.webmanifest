@@ -1,0 +1,18 @@
+{
+  "name": "Pióro — edytor do pisania książek",
+  "short_name": "Pióro",
+  "description": "Prosty edytor do pisania książek i opowiadań. Działa offline, zapisuje na Twoim urządzeniu.",
+  "lang": "pl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e9eefc",
+  "theme_color": "#e9eefc",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}
