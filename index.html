@@ -502,6 +502,7 @@ body.rdj .rd-flow p,body.rdj .rd-flow div,body.rdj .rd-flow li,body.rdj .rd-flow
 .cv-up span{display:flex;flex-direction:column;align-items:center;gap:4px}
 .cv-up b{font-size:12px;color:var(--text)}.cv-up small{font-size:10px;line-height:1.2}
 .cv-up.has{border-style:solid;border-color:var(--accent)}.cv-up.has span{display:none}
+.cv-hint{margin:0;font-size:11.5px;line-height:1.4;color:var(--muted)}.cv-hint b{color:var(--text);font-weight:600}
 .cv-side{display:flex;flex-direction:column;gap:12px;min-width:0}
 .bd{position:fixed;inset:0;z-index:50;overflow:auto;background:transparent;padding:max(16px,env(safe-area-inset-top)) 16px max(32px,env(safe-area-inset-bottom));transition:background .3s,backdrop-filter .3s}
 .bd.in{background:color-mix(in srgb,var(--bg1) 78%,transparent);backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%)}
@@ -1880,7 +1881,8 @@ async function bookDataFlow(id){
     <div class="cv-edit"><button type="button" class="cv-up${dlgImg?' has':''}" id="cvUp" style="${dlgImg?`background-image:url('${dlgImg}')`:''}" aria-label="Wgraj własną okładkę"><span>${svg('image')}<b>Własna okładka</b><small>Tytuł pojawi się na półce</small></span></button>
     <div class="cv-side"><div class="covers">${COVERS.map((c,i)=>`<button type="button" class="cv${!dlgImg&&i===dlgCov?' on':''}" data-cv="${i}" style="background:linear-gradient(135deg,${c[0]},${c[1]})" aria-label="Kolor okładki ${i+1}"></button>`).join('')}</div>
     <button type="button" class="btn sm" id="cvCrop"${dlgImg?'':' hidden'}>${svg('maximize')}Kadruj okładkę</button>
-    <button type="button" class="btn sm" id="cvRm"${dlgImg?'':' hidden'}>${svg('trash')}Usuń własną okładkę</button></div></div>
+    <button type="button" class="btn sm" id="cvRm"${dlgImg?'':' hidden'}>${svg('trash')}Usuń własną okładkę</button>
+    <p class="cv-hint">Zalecany rozmiar: <b>480 × 704 px</b> lub więcej, w proporcjach 15 : 22 (pionowo). Inne zdjęcia dokadrujesz.</p></div></div>
     <input type="file" id="cvFile" accept="image/*" hidden></div>`;
   const v=await dialog({title:p?'Tytuł, autor i okładka':'Nowa książka',html:fieldHtml([{id:'title',label:'Tytuł książki',value:p?p.title:'',ph:'Np. Ostatni pociąg'},{id:'author',label:'Autor',value:p?p.author:'',ph:'Imię i nazwisko'}])+cv,ok:p?'Zapisz':'Utwórz',collect:()=>({title:$('#f_title').value.trim(),author:$('#f_author').value.trim(),cover:dlgCov,img:dlgImg})});
   if(!v)return;
