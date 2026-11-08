@@ -562,10 +562,6 @@ textarea.p-in{resize:none;min-height:72px;overflow:hidden}
 .p-hint{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.4}
 .fig-empty{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 12px;border:2px dashed var(--line);border-radius:16px;color:var(--muted);background:var(--hover)}
 .fig-empty b{color:var(--text);font-size:14px}.fig-empty small{font-size:12px;text-align:center}
-.fig-prev-wrap{display:flex;justify-content:center}
-.fig-prev{position:relative;display:block;padding:0;border-radius:14px;overflow:hidden;background:var(--hover);border:1px solid var(--line)}
-.fig-prev img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
-.fp-pin{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--accent);color:#fff;font:700 11px/18px Inter,system-ui,sans-serif;text-align:center;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4)}
 .chips-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 .chipb{padding:6px 12px;border-radius:999px;background:var(--hover);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--text)}
 .chipb.on{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -592,37 +588,14 @@ textarea.in:focus{border-color:var(--accent)}
 .fs-img{position:absolute;max-width:none;border-radius:10px;pointer-events:none;-webkit-user-drag:none}
 .fs-stage.place .fs-img{outline:3px dashed #ff9f1c;outline-offset:4px}
 .fs-svg{position:absolute;left:0;top:0;pointer-events:none;z-index:4;overflow:visible}
-.fs-svg line{stroke:#ff9f1c;stroke-width:3;stroke-linecap:round}
-.fs-pin{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;padding:0;border-radius:50%;background:var(--accent);color:#fff;font:800 16px/34px Inter,system-ui,sans-serif;text-align:center;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.55);z-index:5;touch-action:none}
-.fs-pin.sel{width:50px;height:50px;margin:-25px 0 0 -25px;background:#ff9f1c;color:#1d1d1f;font-size:20px;line-height:44px;z-index:7;animation:fsPulse 1.6s ease-out infinite}
-.fs-stage.place .fs-pin{opacity:.6;pointer-events:none}
 @keyframes fsPulse{0%{box-shadow:0 0 0 0 rgba(255,159,28,.75),0 2px 10px rgba(0,0,0,.55)}100%{box-shadow:0 0 0 20px rgba(255,159,28,0),0 2px 10px rgba(0,0,0,.55)}}
-.fs-chip{position:absolute;transform:translateY(-50%);max-width:46%;padding:5px 10px;border-radius:10px;background:rgba(16,19,28,.82);border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:4;pointer-events:none}
-.fs-chip[hidden]{display:none}
-.fs-bubble{position:absolute;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:18px;background:#fff;color:#1b1f2a;box-shadow:0 8px 28px rgba(0,0,0,.5);z-index:8;cursor:pointer;border:2px solid #ff9f1c}
-.fs-bubble[hidden]{display:none}
-.fs-bubble .bth{width:52px;height:52px;flex:none;border-radius:12px;background:#eef0f6 center/contain no-repeat;display:grid;place-items:center;color:#8a90a2}
-.fs-bubble .btx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.fs-bubble .btx b{font-size:15px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.fs-bubble .btx small{font-size:12px;color:#6b7188;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.fs-bubble .bgo{color:#8a90a2;flex:none}
 .fs-banner{position:absolute;left:50%;top:10px;transform:translateX(-50%);max-width:92%;padding:9px 14px;border-radius:999px;background:#ff9f1c;color:#1d1d1f;font-weight:700;font-size:13.5px;z-index:9;text-align:center;pointer-events:none}
 .fs-banner[hidden]{display:none}
-.fs-zoom{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:4px;padding:4px;border-radius:999px;background:rgba(16,19,28,.7);backdrop-filter:blur(10px);z-index:9}
 .fs-zoom .txt{width:auto;min-width:48px;padding:0 8px;font-size:12px;font-weight:700}
-.fs-dock{flex:none;display:flex;gap:10px;overflow-x:auto;padding:10px 12px calc(env(safe-area-inset-bottom) + 12px);background:rgba(255,255,255,.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);scroll-snap-type:x proximity;min-height:60px;align-items:stretch}
-.fs-dc{position:relative;flex:none;width:100px;padding:5px;border-radius:14px;background:rgba(255,255,255,.1);border:2px solid transparent;color:#fff;text-align:center;scroll-snap-align:center;display:flex;flex-direction:column;gap:5px}
-.fs-dc.sel{border-color:#ff9f1c;background:rgba(255,159,28,.2)}
-.fs-dc .th{display:grid;place-items:center;aspect-ratio:1;border-radius:10px;background:#fff center/contain no-repeat;color:#9aa0b4}
-.fs-dc .lb{font-size:12.5px;line-height:1.25;height:2.5em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.fs-dc .nb{position:absolute;top:-6px;left:-6px;min-width:24px;height:24px;padding:0 4px;border-radius:12px;background:var(--accent);color:#fff;font:800 13px/20px Inter,system-ui,sans-serif;border:2px solid #10131c;z-index:1}
-.fs-dc.sel .nb{background:#ff9f1c;color:#1d1d1f}
-.fs-empty{margin:auto;color:rgba(255,255,255,.7);font-size:14px;text-align:center}
 .fs-detail{position:absolute;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .fs-detail[hidden]{display:none}
 .fd-card{width:100%;max-width:560px;max-height:94%;overflow:auto;background:var(--page);color:var(--text);border-radius:26px 26px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);display:flex;flex-direction:column;gap:12px}
 .fd-top{display:flex;align-items:center;gap:10px}
-.fd-n{min-width:32px;height:32px;border-radius:16px;background:#ff9f1c;color:#1d1d1f;font-weight:800;display:grid;place-items:center;padding:0 6px}
 .fd-t{flex:1;font-size:20px;line-height:1.2;overflow-wrap:anywhere}
 .fd-photo{border-radius:18px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;min-height:160px;overflow:hidden}
 .fd-photo img{width:100%;max-height:56vh;object-fit:contain;display:block}
@@ -631,7 +604,29 @@ textarea.in:focus{border-color:var(--accent)}
 .fd-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:13px}
 .fd-act{display:flex;gap:8px}.fd-act .btn{flex:1}
 .rel.ro .rn{cursor:pointer}
-@media (prefers-reduced-motion:reduce){.fs-pin.sel{animation:none}}
+/* sylwetka z kartami po bokach (bez numerów) */
+.fs{padding-bottom:env(safe-area-inset-bottom)}
+.fs-pin{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;padding:0;border-radius:50%;background:none;border:0;z-index:5;touch-action:none}
+.fs-pin::after{content:'';position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#ff9f1c;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.55);transition:transform .15s}
+.fs-pin.sel{z-index:7}
+.fs-pin.sel::after{transform:scale(1.5);animation:fsPulse 1.6s ease-out infinite}
+.fs-stage.place .fs-pin,.fs-stage.place .co-card{opacity:.6;pointer-events:none}
+.fs-zoom{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;display:flex;align-items:center;gap:4px;padding:4px;border-radius:999px;background:rgba(16,19,28,.7);backdrop-filter:blur(10px);z-index:9}
+.co-card{position:absolute;z-index:6;display:flex;flex-direction:column;gap:4px;padding:4px;border-radius:12px;background:#fff;color:#1b1f2a;border:2px solid #ff9f1c;box-shadow:0 4px 14px rgba(0,0,0,.35);overflow:hidden;text-align:center;cursor:pointer}
+.co-card.sel{background:#fff1d9;box-shadow:0 0 0 3px rgba(255,159,28,.5),0 4px 14px rgba(0,0,0,.35)}
+.co-th{flex:none;display:grid;place-items:center;border-radius:8px;background:#eef0f6 center/contain no-repeat;color:#8a90a2}
+.co-lb{flex:none;font-size:11.5px;line-height:14px;font-weight:600;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;overflow-wrap:anywhere;hyphens:auto}
+.co-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.co-bg{fill:none;stroke:rgba(0,0,0,.38);stroke-width:5;stroke-linecap:round}
+.co-ln{fill:none;stroke:#ff9f1c;stroke-width:2.5;stroke-linecap:round}
+.co-sel .co-ln{stroke-width:4}
+.co-board{position:relative;width:100%;border-radius:14px;background:var(--hover);border:1px solid var(--line);overflow:hidden}
+.co-fig{position:absolute;z-index:1;padding:0;border-radius:10px;overflow:hidden;background:var(--hover)}
+.co-fig img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
+.co-board .co-svg{z-index:2}
+.co-board .co-card{z-index:4}
+.co-dot{position:absolute;z-index:3;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#ff9f1c;border:2.5px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.55);pointer-events:none}
+@media (prefers-reduced-motion:reduce){.fs-pin.sel::after{animation:none}}
 </style>
 </head>
 <body data-theme="light">
@@ -795,7 +790,6 @@ textarea.in:focus{border-color:var(--accent)}
     <div class="fs-banner" id="fsBanner" hidden></div>
     <div class="fs-zoom"><button class="ib sm" id="fsZout" aria-label="Oddal"><i data-i="minus"></i></button><button class="ib sm txt" id="fsZoomPct" title="Dopasuj do ekranu">100%</button><button class="ib sm" id="fsZin" aria-label="Przybliż"><i data-i="plus"></i></button></div>
   </div>
-  <div class="fs-dock" id="fsDock"></div>
   <div class="fs-detail" id="fsDetail" hidden></div>
 </section>
 
@@ -2471,6 +2465,52 @@ function profBuild(){
 }
 function autoGrowP(t){t.style.height='auto';t.style.height=Math.max(72,t.scrollHeight)+'px'}
 const SIL='<svg viewBox="0 0 120 240" width="72" height="144" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="60" cy="30" r="18"/><path d="M60 50v10M30 80c0-12 12-20 30-20s30 8 30 20v52M30 80v52M44 132l-4 94M76 132l4 94M44 132h32M30 132h60"/></svg>';
+/* układ kart po bokach sylwetki (wspólny dla profilu i pełnego ekranu) */
+const CO={padX:6,gapX:6,padY:10,gap:8};
+const coColW=sw=>Math.round(Math.max(66,Math.min(150,sw*.21)));
+function coCompute(tags,sw,sh,fig,colW){
+  const pts=tags.map(t=>({t,ay:fig.oy+t.y*fig.H}));
+  let L=pts.filter(p=>p.t.x<.5),Rr=pts.filter(p=>p.t.x>=.5);
+  const mid=p=>Math.abs(p.t.x-.5);
+  while(Math.abs(L.length-Rr.length)>1){
+    if(L.length>Rr.length){L.sort((x,y)=>mid(x)-mid(y));Rr.push(L.shift())}
+    else{Rr.sort((x,y)=>mid(x)-mid(y));L.push(Rr.shift())}
+  }
+  const n=Math.max(L.length,Rr.length,1),avail=sh-2*CO.padY,inner=colW-12;
+  let thumb=inner,lab=28,h=12+thumb+4+lab;
+  if(n*h+(n-1)*CO.gap>avail){
+    const hh=Math.max(44,Math.floor((avail-(n-1)*CO.gap)/n));
+    lab=hh>=72?28:(hh>=58?14:0);
+    thumb=Math.min(inner,Math.max(20,hh-12-(lab?4+lab:0)));
+    h=12+thumb+(lab?4+lab:0);
+  }
+  const cards=new Map();
+  const place=(arr,side)=>{
+    const k=arr.length;if(!k)return;
+    arr.sort((x,y)=>x.ay-y.ay);
+    const lo=CO.padY,hi=sh-CO.padY-h;
+    let tops;
+    if(k*h+(k-1)*CO.gap>avail){const pitch=k>1?(hi-lo)/(k-1):0;tops=arr.map((_,i)=>lo+i*pitch)}
+    else{
+      tops=arr.map(p=>Math.max(lo,Math.min(hi,p.ay-h/2)));
+      for(let i=1;i<k;i++)tops[i]=Math.max(tops[i],tops[i-1]+h+CO.gap);
+      if(tops[k-1]>hi){tops[k-1]=hi;for(let i=k-2;i>=0;i--)tops[i]=Math.min(tops[i],tops[i+1]-h-CO.gap)}
+    }
+    arr.forEach((p,i)=>cards.set(p.t.id,{side,top:tops[i],left:side==='l'?CO.padX:sw-CO.padX-colW,h}));
+  };
+  place(L,'l');place(Rr,'r');
+  return{colW,thumb,lab,cards};
+}
+function coCardHtml(t,co){
+  const k=co.cards.get(t.id);if(!k)return '';
+  return `<button class="co-card" data-id="${t.id}" aria-label="${esc(t.label||'Element ubioru')}" style="left:${k.left}px;top:${k.top}px;width:${co.colW}px;height:${k.h}px"><span class="co-th" style="height:${co.thumb}px${t.img?`;background-image:url('${t.img}')`:''}">${t.img?'':svg('shirt')}</span>${co.lab?`<span class="co-lb" style="height:${co.lab}px;-webkit-line-clamp:${co.lab>14?2:1}">${esc(t.label||'Bez nazwy')}</span>`:''}</button>`;
+}
+function coLine(co,t,ax,ay,sel){
+  const k=co.cards.get(t.id);if(!k)return '';
+  const ex=k.side==='l'?k.left+co.colW:k.left,ey=k.top+k.h/2,mx=(ex+ax)/2;
+  const d=`M${ex.toFixed(1)} ${ey.toFixed(1)}C${mx.toFixed(1)} ${ey.toFixed(1)} ${mx.toFixed(1)} ${ay.toFixed(1)} ${ax.toFixed(1)} ${ay.toFixed(1)}`;
+  return `<g class="${sel?'co-sel':''}"><path class="co-bg" d="${d}"/><path class="co-ln" d="${d}"/></g>`;
+}
 function figCardRender(){
   const c=pc(),box=$('#figCard');if(!c||!box)return;
   const n=c.tags.length;
@@ -2480,14 +2520,25 @@ function figCardRender(){
   }
   const tools=`<button class="btn sm primary" data-fa="open">${svg('maximize')}Pełny ekran</button>`+(PF.ro?'':`<button class="btn sm" data-fa="pick">${svg('image')}Zmień</button><button class="btn sm" data-fa="crop">${svg('crop')}Kadruj</button><button class="ib sm" data-fa="rmfig" aria-label="Usuń sylwetkę" title="Usuń sylwetkę">${svg('trash')}</button>`);
   box.innerHTML=`<div class="p-h"><b>Sylwetka i ubiór</b><div class="p-tools">${tools}</div></div>
-  <div class="fig-prev-wrap"><button class="fig-prev" data-fa="open" aria-label="Otwórz sylwetkę na pełnym ekranie"><img src="${c.fig}" alt="" draggable="false">${c.tags.map((t,i)=>`<span class="fp-pin" style="left:${t.x*100}%;top:${t.y*100}%">${i+1}</span>`).join('')}</button></div>
-  <p class="p-hint">${n?`${n} ${pl(n,['znacznik','znaczniki','znaczników'])} z elementami ubioru. Dotknij sylwetki, aby otworzyć ją na pełnym ekranie.`:(PF.ro?'Brak znaczników ubioru.':'Otwórz na pełnym ekranie, aby dodać znaczniki z elementami ubioru.')}</p>`;
-  figPrevFit();
+  <div class="co-board" id="figBoard"></div>
+  <p class="p-hint">${n?`${n} ${pl(n,['element ubioru','elementy ubioru','elementów ubioru'])}. Dotknij elementu, aby zobaczyć szczegóły, albo sylwetki, aby otworzyć ją na pełnym ekranie.`:(PF.ro?'Brak znaczników ubioru.':'Otwórz na pełnym ekranie, aby dodać znaczniki z elementami ubioru.')}</p>`;
+  figBoardFit();
 }
-function figPrevFit(){
-  const c=pc(),pv=$('.fig-prev');if(!c||!pv)return;
-  const w=pv.parentElement.clientWidth||300,h=Math.min(380,w/c.figR);
-  pv.style.height=h+'px';pv.style.width=(h*c.figR)+'px';
+function figBoardFit(){
+  const c=pc(),b=$('#figBoard');if(!c||!c.fig||!b)return;
+  const sw=b.clientWidth;if(!sw)return;
+  const n=c.tags.length,colW=coColW(sw);
+  const cw=n?sw-2*(colW+CO.padX+CO.gapX):sw-2*CO.padX;
+  const fh=Math.min(n?460:380,cw/c.figR),fw=fh*c.figR;
+  const per=Math.ceil(n/2),nat=colW+32;
+  const H=Math.round(Math.max(fh+2*CO.padY,per*nat+Math.max(0,per-1)*CO.gap+2*CO.padY));
+  const fig={ox:(sw-fw)/2,oy:(H-fh)/2,W:fw,H:fh};
+  const co=coCompute(c.tags,sw,H,fig,colW);
+  b.style.height=H+'px';
+  b.innerHTML=`<button class="co-fig" data-fa="open" aria-label="Otwórz sylwetkę na pełnym ekranie" style="left:${fig.ox}px;top:${fig.oy}px;width:${fw}px;height:${fh}px"><img src="${c.fig}" alt="" draggable="false"></button>`
+    +`<svg class="co-svg" width="${sw}" height="${H}">${c.tags.map(t=>coLine(co,t,fig.ox+t.x*fw,fig.oy+t.y*fh,false)).join('')}</svg>`
+    +c.tags.map(t=>`<span class="co-dot" style="left:${fig.ox+t.x*fw}px;top:${fig.oy+t.y*fh}px"></span>`).join('')
+    +c.tags.map(t=>coCardHtml(t,co)).join('');
 }
 profScroll.addEventListener('input',e=>{
   const c=pc(),t=e.target;if(!c)return;
@@ -2501,6 +2552,8 @@ profScroll.addEventListener('input',e=>{
 profScroll.addEventListener('click',async e=>{
   const c=pc();if(!c)return;
   if(e.target.closest('#pAv')){await charFlow(c);if(PF.id){$('#headCard').innerHTML=profHeadHtml(c);$$('textarea',profScroll).forEach(autoGrowP);$('#profTitle').textContent=c.name||'Profil postaci'}return}
+  const cd=e.target.closest('.co-card');
+  if(cd){openFig();openDetail(cd.dataset.id);return}
   const a=e.target.closest('[data-fa]');if(!a)return;
   const k=a.dataset.fa;
   if(k==='open')openFig();
@@ -2512,7 +2565,7 @@ profScroll.addEventListener('click',async e=>{
   }
 });
 $('#profClose').addEventListener('click',closeProfile);
-addEventListener('resize',()=>{if(!profEl.hidden)figPrevFit();if(FS.open)fsLayout()});
+addEventListener('resize',()=>{if(!profEl.hidden)figBoardFit();if(FS.open)fsLayout()});
 
 /* ---------- wybór i kadrowanie zdjęć (sylwetka, ubiór) ---------- */
 const ASP_FIG=[['Oryginał',0],['3:4',3/4],['2:3',2/3],['9:16',9/16]];
@@ -2599,81 +2652,65 @@ async function figRecrop(){
 }
 
 /* ---------- pełnoekranowa sylwetka ze znacznikami ---------- */
-const FS={open:false,z:1,tx:0,ty:0,sel:null,place:false,labels:false,ro:false,sw:0,sh:0,W:0,H:0,ox:0,oy:0};
-const fsEl=$('#fs'),fsStage=$('#fsStage'),fsImg=$('#fsImg'),fsSvg=$('#fsSvg'),fsLayer=$('#fsLayer'),fsDock=$('#fsDock'),fsDetail=$('#fsDetail');
+const FS={open:false,z:1,tx:0,ty:0,sel:null,place:false,ro:false,sw:0,sh:0,W:0,H:0,ox:0,oy:0,co:null,coKey:''};
+const fsEl=$('#fs'),fsStage=$('#fsStage'),fsImg=$('#fsImg'),fsSvg=$('#fsSvg'),fsLayer=$('#fsLayer'),fsDetail=$('#fsDetail');
 function openFig(){
   const c=pc();if(!c||!c.fig)return;
-  FS.open=true;FS.ro=PF.ro;FS.z=1;FS.tx=FS.ty=0;FS.sel=null;FS.place=false;
+  FS.open=true;FS.ro=PF.ro;FS.z=1;FS.tx=FS.ty=0;FS.sel=null;FS.place=false;FS.co=null;
   fsEl.hidden=false;fsEl.classList.toggle('ro',FS.ro);
   $('#fsTitle').textContent=c.name||'Sylwetka';
   fsImg.src=c.fig;
+  fsZoomUi();
   fsBuild();
 }
 function closeFig(){
   if(!FS.open)return;
-  FS.open=false;FS.place=false;fsEl.hidden=true;fsDetail.hidden=true;fsDetail.innerHTML='';fsLayer.innerHTML='';fsDock.innerHTML='';
+  FS.open=false;FS.place=false;FS.co=null;fsEl.hidden=true;fsDetail.hidden=true;fsDetail.innerHTML='';fsLayer.innerHTML='';fsSvg.innerHTML='';
   if(!profEl.hidden)figCardRender();
   scheduleSave();
 }
 function fsTools(){
-  $('#fsTools').innerHTML=(FS.ro?'':`<button class="btn sm${FS.place?' primary':''}" data-ft="place">${svg('pin')}${FS.place?'Anuluj':'Znacznik'}</button>`)+`<button class="btn sm${FS.labels?' on':''}" data-ft="labels" aria-pressed="${FS.labels}">${svg('type')}Podpisy</button>`;
+  $('#fsTools').innerHTML=FS.ro?'':`<button class="btn sm${FS.place?' primary':''}" data-ft="place">${svg('pin')}${FS.place?'Anuluj':'Znacznik'}</button>`;
 }
 function fsBuild(){
   const c=pc();if(!c)return;
   if(FS.sel&&!c.tags.some(t=>t.id===FS.sel))FS.sel=null;
-  fsTools();
-  fsLayer.innerHTML=c.tags.map((t,i)=>`<button class="fs-pin" data-id="${t.id}" aria-label="Znacznik ${i+1}: ${esc(t.label||'bez nazwy')}">${i+1}</button><span class="fs-chip" data-id="${t.id}">${esc(t.label||'Bez nazwy')}</span>`).join('')+`<div class="fs-bubble" id="fsBubble" hidden></div>`;
-  fsDock.innerHTML=c.tags.length?c.tags.map((t,i)=>`<button class="fs-dc" data-id="${t.id}"><span class="nb">${i+1}</span><span class="th"${t.img?` style="background-image:url('${t.img}')"`:''}>${t.img?'':svg('shirt')}</span><span class="lb">${esc(t.label||'Bez nazwy')}</span></button>`).join(''):`<p class="fs-empty">${FS.ro?'Brak znaczników ubioru.':'Dotknij „Znacznik”, a potem miejsca na sylwetce, aby dodać element ubioru.'}</p>`;
-  const b=$('#fsBanner');b.hidden=!FS.place;b.textContent='Dotknij miejsca na sylwetce, np. w okolicy bioder';
+  fsTools();FS.co=null;
+  const msg=FS.place?'Dotknij miejsca na sylwetce, np. w okolicy bioder':(c.tags.length?'':(FS.ro?'Brak znaczników ubioru.':'Dotknij „Znacznik”, a potem miejsca na sylwetce, aby dodać element ubioru.'));
+  const b=$('#fsBanner');b.hidden=!msg;b.textContent=msg;
   fsStage.classList.toggle('place',FS.place);
-  fsLayout();fsSelUi();
+  fsLayout();
 }
+function fsMarkSel(){$$('.fs-pin,.co-card',fsLayer).forEach(x=>x.classList.toggle('sel',x.dataset.id===FS.sel))}
 function fsLayout(){
   const c=pc();if(!c||!FS.open)return;
   const sw=fsStage.clientWidth,sh=fsStage.clientHeight;if(!sw||!sh)return;
-  const pad=10,R=c.figR,h0=Math.min(sh-pad*2,(sw-pad*2)/R),w0=h0*R;
+  const R=c.figR,reserve=!(FS.ro&&!c.tags.length),colW=coColW(sw);
+  const cw=reserve?sw-2*(colW+CO.padX+CO.gapX):sw-2*CO.padX;
+  const h0=Math.max(40,Math.min(sh-CO.padY*2,cw/R)),w0=h0*R;
   FS.z=Math.max(1,Math.min(6,FS.z));
-  const W=w0*FS.z,H=h0*FS.z,mx=Math.max(0,(W-sw)/2+(W>sw?0:0)),my=Math.max(0,(H-sh)/2);
+  const W=w0*FS.z,H=h0*FS.z,mx=Math.max(0,(W-sw)/2),my=Math.max(0,(H-sh)/2);
   FS.tx=Math.max(-mx,Math.min(mx,FS.tx));FS.ty=Math.max(-my,Math.min(my,FS.ty));
   const ox=(sw-W)/2+FS.tx,oy=(sh-H)/2+FS.ty;
   Object.assign(FS,{sw,sh,W,H,ox,oy,w0,h0});
   fsImg.style.cssText=`left:${ox}px;top:${oy}px;width:${W}px;height:${H}px`;
-  const pos=new Map();
-  c.tags.forEach(t=>{
-    const px=ox+t.x*W,py=oy+t.y*H;pos.set(t.id,{px,py});
-    const pin=fsLayer.querySelector(`.fs-pin[data-id="${t.id}"]`),ch=fsLayer.querySelector(`.fs-chip[data-id="${t.id}"]`);
-    if(pin){pin.style.left=px+'px';pin.style.top=py+'px'}
-    if(ch){
-      const right=px<sw*.55;
-      ch.style.cssText=`top:${py}px;${right?`left:${px+30}px`:`left:${px-30}px;transform:translate(-100%,-50%)`}`;
-      ch.hidden=!FS.labels||t.id===FS.sel;
-    }
-  });
-  // dymek zaznaczonego znacznika + linia
-  const bub=$('#fsBubble'),t=c.tags.find(x=>x.id===FS.sel);
-  if(!t){if(bub)bub.hidden=true;fsSvg.innerHTML='';fsSvg.setAttribute('width',sw);fsSvg.setAttribute('height',sh);return}
-  const {px,py}=pos.get(t.id),bw=Math.min(240,sw-16),bh=72,above=py-34-bh>6;
-  const left=Math.max(8,Math.min(px-bw/2,sw-bw-8)),top=above?py-34-bh:Math.min(py+34,sh-bh-8);
-  bub.style.cssText=`left:${left}px;top:${top}px;width:${bw}px;height:${bh}px`;bub.hidden=false;
-  const ex=Math.max(left+18,Math.min(px,left+bw-18)),ey=above?top+bh:top;
-  fsSvg.setAttribute('width',sw);fsSvg.setAttribute('height',sh);
-  fsSvg.innerHTML=`<line x1="${px}" y1="${py}" x2="${ex}" y2="${ey}"/>`;
-}
-function fsSelUi(){
-  const c=pc();if(!c)return;
-  $$('.fs-pin',fsLayer).forEach(x=>x.classList.toggle('sel',x.dataset.id===FS.sel));
-  $$('.fs-dc',fsDock).forEach(x=>x.classList.toggle('sel',x.dataset.id===FS.sel));
-  const bub=$('#fsBubble'),t=c.tags.find(x=>x.id===FS.sel);
-  if(bub&&t){
-    const i=c.tags.indexOf(t);
-    bub.innerHTML=`<span class="bth"${t.img?` style="background-image:url('${t.img}')"`:''}>${t.img?'':svg('shirt')}</span><span class="btx"><b>${i+1}. ${esc(t.label||'Bez nazwy')}</b><small>${t.note?esc(t.note):'Dotknij, aby zobaczyć szczegóły'}</small></span><span class="bgo">${svg('chevRight')}</span>`;
+  const key=sw+'x'+sh+':'+reserve;
+  if(!FS.co||FS.coKey!==key){
+    FS.co=coCompute(c.tags,sw,sh,{ox:(sw-w0)/2,oy:(sh-h0)/2,W:w0,H:h0},colW);FS.coKey=key;
+    fsLayer.innerHTML=c.tags.map(t=>`<button class="fs-pin" data-id="${t.id}" aria-label="Znacznik: ${esc(t.label||'bez nazwy')}"></button>`).join('')+c.tags.map(t=>coCardHtml(t,FS.co)).join('');
+    fsMarkSel();
   }
-  fsLayout();
+  let lines='';
+  c.tags.forEach(t=>{
+    const px=ox+t.x*W,py=oy+t.y*H;
+    const pin=fsLayer.querySelector(`.fs-pin[data-id="${t.id}"]`);
+    if(pin){pin.style.left=px+'px';pin.style.top=py+'px'}
+    lines+=coLine(FS.co,t,px,py,t.id===FS.sel);
+  });
+  fsSvg.setAttribute('width',sw);fsSvg.setAttribute('height',sh);fsSvg.innerHTML=lines;
 }
-function fsSelect(id,scroll){
-  FS.sel=id;fsSelUi();
-  if(scroll){const d=fsDock.querySelector(`.fs-dc[data-id="${id}"]`);if(d)d.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}
-}
+function fsSelUi(){fsMarkSel();fsLayout()}
+function fsSelect(id){FS.sel=id;fsSelUi()}
 function fsZoomAt(nz,px,py){
   nz=Math.max(1,Math.min(6,nz));
   const u=(px-FS.ox)/FS.W,v=(py-FS.oy)/FS.H,W=FS.w0*nz,H=FS.h0*nz;
@@ -2685,16 +2722,11 @@ $('#fsClose').addEventListener('click',closeFig);
 $('#fsTools').addEventListener('click',e=>{
   const b=e.target.closest('[data-ft]');if(!b)return;
   if(b.dataset.ft==='place'){FS.place=!FS.place;if(FS.place)FS.sel=null;fsBuild()}
-  else{FS.labels=!FS.labels;fsTools();fsLayout()}
 });
 $('#fsZin').addEventListener('click',()=>fsZoomAt(FS.z*1.4,FS.sw/2,FS.sh/2));
 $('#fsZout').addEventListener('click',()=>fsZoomAt(FS.z/1.4,FS.sw/2,FS.sh/2));
 $('#fsZoomPct').addEventListener('click',()=>{FS.z=1;FS.tx=FS.ty=0;fsLayout();fsZoomUi()});
-fsDock.addEventListener('click',e=>{
-  const d=e.target.closest('.fs-dc');if(!d)return;
-  if(FS.sel===d.dataset.id)openDetail(d.dataset.id);else fsSelect(d.dataset.id,false);
-});
-fsStage.addEventListener('click',e=>{if(e.target.closest('.fs-bubble')&&FS.sel)openDetail(FS.sel)});
+fsStage.addEventListener('click',e=>{const k=e.target.closest('.co-card');if(k&&!FS.place)openDetail(k.dataset.id)});
 fsStage.addEventListener('wheel',e=>{
   if(!FS.open)return;e.preventDefault();
   const r=fsStage.getBoundingClientRect();fsZoomAt(FS.z*(e.deltaY<0?1.15:1/1.15),e.clientX-r.left,e.clientY-r.top);
@@ -2704,7 +2736,7 @@ fsStage.addEventListener('wheel',e=>{
   const rel=e=>{const r=fsStage.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
   const two=()=>{const [a,b]=[...ptr.values()];return{d:Math.hypot(a.x-b.x,a.y-b.y)||1,mx:(a.x+b.x)/2,my:(a.y+b.y)/2}};
   fsStage.addEventListener('pointerdown',e=>{
-    if(e.target.closest('.fs-bubble,.fs-zoom,.fs-banner'))return;
+    if(e.target.closest('.co-card,.fs-zoom,.fs-banner'))return;
     fsStage.setPointerCapture(e.pointerId);ptr.set(e.pointerId,rel(e));
     if(ptr.size===2){const t=two();g={mode:'pinch',d:t.d,mx:t.mx,my:t.my};return}
     if(ptr.size>2)return;
@@ -2730,11 +2762,11 @@ fsStage.addEventListener('wheel',e=>{
     if(!had||!g)return;
     if(g.mode==='pinch'){if(ptr.size<2)g=null;return}
     const x=g;g=null;
-    if(x.moved){if(x.mode==='pin')scheduleSave();return}
+    if(x.moved){if(x.mode==='pin'){FS.co=null;fsLayout();scheduleSave()}return}
     if(e.type!=='pointerup')return;
     const p=rel(e);
     if(x.pin){
-      if(FS.sel===x.pin)openDetail(x.pin);else fsSelect(x.pin,true);
+      if(FS.ro||FS.sel===x.pin)openDetail(x.pin);else fsSelect(x.pin);
       return;
     }
     if(FS.place){
@@ -2763,14 +2795,14 @@ function openDetail(id){
   const t=c.tags[i],n=c.tags.length;
   fsDetail.dataset.id=id;
   fsDetail.innerHTML=`<div class="fd-card" role="dialog" aria-modal="true" aria-label="Element ubioru">
-    <div class="fd-top"><span class="fd-n">${i+1}</span><b class="fd-t">${esc(t.label||'Bez nazwy')}</b><button class="ib" data-fd="x" aria-label="Zamknij">${svg('x')}</button></div>
+    <div class="fd-top"><b class="fd-t">${esc(t.label||'Bez nazwy')}</b><button class="ib" data-fd="x" aria-label="Zamknij">${svg('x')}</button></div>
     <div class="fd-photo">${t.img?`<img src="${t.img}" alt="${esc(t.label)}" draggable="false">`:`<div class="fd-none">${svg('shirt')}<span>Brak zdjęcia elementu</span></div>`}</div>
     ${t.note?`<p class="fd-note">${esc(t.note)}</p>`:''}
     <div class="fd-nav"><button class="btn sm" data-fd="prev"${n<2?' disabled':''}>${svg('chevLeft')}Poprzedni</button><span>${i+1} / ${n}</span><button class="btn sm" data-fd="next"${n<2?' disabled':''}>Następny${svg('chevRight')}</button></div>
     ${FS.ro?'':`<div class="fd-act"><button class="btn primary" data-fd="edit">${svg('edit')}Edytuj</button></div>`}
   </div>`;
   fsDetail.hidden=false;FS.detT=Date.now();
-  fsSelect(id,true);
+  fsSelect(id);
 }
 function closeDetail(){fsDetail.hidden=true;fsDetail.innerHTML=''}
 fsDetail.addEventListener('click',async e=>{
@@ -2788,7 +2820,7 @@ async function openTag(id,isNew){
   const c=pc(),t=c&&c.tags.find(x=>x.id===id);if(!t)return;
   let img=t.img,rm=false;
   const ph=()=>{const b=$('#tgPh');if(!b)return;b.style.backgroundImage=img?`url('${img}')`:'';b.classList.toggle('has',!!img);$('#tgRm').hidden=!img;$('#tgCrop').hidden=!img};
-  const pr=dialog({title:isNew?'Nowy znacznik':'Znacznik '+(c.tags.indexOf(t)+1),
+  const pr=dialog({title:isNew?'Nowy znacznik':'Edycja znacznika',
     html:`<div class="tg-top"><button type="button" class="tg-ph" id="tgPh" aria-label="Wgraj zdjęcie elementu">${svg('image')}</button><div class="tg-btns"><button type="button" class="btn sm" id="tgPick">${svg('upload')}Zdjęcie elementu</button><button type="button" class="btn sm" id="tgCrop" hidden>${svg('crop')}Kadruj</button><button type="button" class="btn sm" id="tgRm" hidden>${svg('trash')}Usuń zdjęcie</button></div></div>`
       +fieldHtml([{id:'tl',label:'Co to za element?',value:t.label,ph:'Np. czarne bokserki, skórzana kurtka'}])
       +`<label class="fld"><span>Notatka (opcjonalnie)</span><textarea class="in" id="tgNote" rows="2" maxlength="500" placeholder="Marka, materiał, kiedy nosi…">${esc(t.note)}</textarea></label>`
