@@ -933,7 +933,7 @@ const THEMES=[
  {id:'paper',name:'Papier',page:'#f8f1de',ink:'#3a2f22',meta:'#efe5cf'},
  {id:'dark',name:'Ciemny',page:'#1b1e2a',ink:'#d7dae3',meta:'#0e1120'}
 ];
-const DEFAULTS={theme:'light',font:'sans',size:18,lh:1.7,width:720,indent:false,typewriter:false,smart:true,spell:true,hyphen:true,rdJustify:true,voices:true};
+const DEFAULTS={theme:'light',font:'sans',size:18,lh:1.7,width:720,indent:false,typewriter:false,smart:true,spell:true,hyphen:true,rdJustify:true,voices:'both'};
 
 const WORD_RE=/[\p{L}\p{N}]+(?:[’'\-][\p{L}\p{N}]+)*/gu;
 const countWords=t=>(t.match(WORD_RE)||[]).length;
@@ -1025,22 +1025,31 @@ function selBlocks(){
   return a;
 }
 /* ---------- głosy postaci: kolor wypowiedzi z koloru postaci ---------- */
+const VOICE_MODES=[['both','Kolor i zaznaczenie'],['mark','Zaznaczenie'],['color','Kolor'],['off','Wyłączone']];
+const voiceMode=st=>{const v=st&&st.voices;if(v===false)return'off';if(v===true||v==null)return'both';return VOICE_MODES.some(m=>m[0]===v)?v:'both'};
 function voiceCss(){
   let st=document.getElementById('voiceCss');
   if(!st){st=document.createElement('style');st.id='voiceCss';document.head.appendChild(st)}
   let cast=[];try{cast=P().cast||[]}catch(e){}
-  const css=cast.map(c=>{const id=String(c.id).replace(/["\\]/g,''),h=rcol(c.color);
-    return `body:not(.novoice) :is(.editor,.rd-flow) .sp[data-sp="${id}"]{color:color-mix(in srgb,${h} 82%,var(--page-ink));background:color-mix(in srgb,${h} 13%,transparent);border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}`}).join('\n');
+  const X=':is(.editor,.rd-flow) .sp[data-sp]';
+  const css=cast.map(c=>{const id=String(c.id).replace(/["\\]/g,'');
+    return `:is(.editor,.rd-flow) .sp[data-sp="${id}"]{--sc:${rcol(c.color)}}`}).join('\n')
+    +`\nbody.vm-both ${X},body.vm-color ${X}{color:color-mix(in srgb,var(--sc) 82%,var(--page-ink))}`
+    +`\nbody.vm-both ${X},body.vm-mark ${X}{background:color-mix(in srgb,var(--sc) 13%,transparent);border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}`
+    +`\nbody.vm-mark ${X}{background:color-mix(in srgb,var(--sc) 24%,transparent)}`;
   if(st.textContent!==css)st.textContent=css;
 }
 let lastVoice='';
 const voiceSpan=n=>{const el=n&&(n.nodeType===1?n:n.parentElement);return el&&el.closest?el.closest('span.sp'):null};
+let lastEdRange=null;
+document.addEventListener('selectionchange',()=>{const s=getSelection();if(s.rangeCount&&editor.contains(s.getRangeAt(0).commonAncestorContainer))lastEdRange=s.getRangeAt(0).cloneRange()});
 async function pickVoice(){
   const sel=getSelection();
-  if(!sel.rangeCount||!editor.contains(sel.getRangeAt(0).commonAncestorContainer)){toast('Zaznacz wypowiedź albo ustaw kursor w akapicie.');return}
+  const saved=(sel.rangeCount&&editor.contains(sel.getRangeAt(0).commonAncestorContainer))?sel.getRangeAt(0).cloneRange():(lastEdRange&&editor.contains(lastEdRange.commonAncestorContainer)?lastEdRange.cloneRange():null);
+  if(!saved){toast('Zaznacz wypowiedź albo ustaw kursor w akapicie.');return}
   const cast=P().cast;
   if(!cast.length){toast('Najpierw dodaj postacie w drzewie relacji.');return}
-  const saved=sel.getRangeAt(0).cloneRange();
+  const ae=document.activeElement;if(ae&&(ae===editor||editor.contains(ae)))ae.blur();
   const v=await dialog({title:'Czyj to głos?',cancel:null,ok:'Zamknij',
     html:`<p class="m-text" style="margin:0 0 12px">Zaznacz wypowiedź (albo ustaw kursor w akapicie, a pokoloruje się cały akapit) i wybierz postać. Kolor pochodzi z drzewa relacji.</p><div class="chips">${cast.map(c=>`<button class="rchip${c.id===lastVoice?' on':''}" data-pick="${c.id}"><span class="rav sm" style="--c:${rcol(c.color)}">${avHtml(c)}</span><span>${esc(c.name||'Bez imienia')}</span></button>`).join('')}<button class="rchip" data-pick="-" style="padding:9px 14px"><span>Bez głosu (narracja)</span></button></div>`});
   if(!v||!v.pick)return;
@@ -1050,6 +1059,7 @@ async function pickVoice(){
   if(id&&!castOf(id))return;
   if(id)lastVoice=id;
   applyVoice(id);
+  if(id&&voiceMode(S.settings)==='off')toast('Głos zapisany, ale kolory są wyłączone w ustawieniach.');
 }
 /* pozycje w bloku liczymy jako przesunięcia znaków, bo DOM zmienia się w trakcie */
 function vPoint(block,off){
@@ -1250,7 +1260,7 @@ function applySettings(){
   body.classList.toggle('indent',!!s.indent);body.classList.toggle('tw',!!s.typewriter);
   editor.spellcheck=!!s.spell;
   $('meta[name=theme-color]').content=t.meta;
-  body.classList.toggle('nohyph',!s.hyphen);body.classList.toggle('novoice',!s.voices);voiceCss();body.classList.toggle('rdj',!!s.rdJustify);
+  body.classList.toggle('nohyph',!s.hyphen);const vm=voiceMode(s);body.classList.remove('vm-both','vm-mark','vm-color');if(vm!=='off')body.classList.add('vm-'+vm);voiceCss();body.classList.toggle('rdj',!!s.rdJustify);
   if(R.open)rdRefreshD();
 }
 
@@ -1274,12 +1284,12 @@ function toggleBlock(tag){
   document.execCommand('formatBlock',false,cur===tag?'p':tag);
 }
 function run(c){
+  if(c==='voice'){pickVoice();return}
   editor.focus();
   if(c==='undo'&&vuUndo()){updateToolbar();return}
   if(c==='redo'&&vuRedo()){updateToolbar();return}
   if(c.startsWith('block:'))toggleBlock(c.slice(6));
   else if(c==='image')pickImage();
-  else if(c==='voice')pickVoice();
   else if(c.startsWith('just:'))justify(c.slice(5));
   else if(c==='scene')document.execCommand('insertHorizontalRule');
   else if(c==='clear'){document.execCommand('removeFormat');document.execCommand('formatBlock',false,'p')}
@@ -1647,7 +1657,7 @@ function renderLook(){
   <div class="sec"><h3>Pisanie</h3>
     ${sw('indent','Wcięcia akapitów','Pierwszy wiersz każdego akapitu wcięty, jak w drukowanych książkach.')}
     ${sw('smart','Polska typografia','Automatyczne „cudzysłowy”, a po wpisaniu „-” i spacji na początku akapitu — pauza dialogowa.')}
-    ${sw('voices','Kolory głosów postaci','Wypowiedzi mają kolor postaci z drzewa relacji. Zmiana koloru postaci zmienia go w całej książce.')}
+    <div class="row"><span><b>Głosy postaci</b><small>Jak pokazywać wypowiedzi pokolorowane kolorem postaci z drzewa relacji.</small></span><select class="in" data-k="voices" style="width:100%">${VOICE_MODES.map(m=>`<option value="${m[0]}"${voiceMode(s)===m[0]?' selected':''}>${m[1]}</option>`).join('')}</select></div>
     ${sw('typewriter','Tryb maszyny do pisania','Wiersz z kursorem trzyma się mniej więcej na środku ekranu.')}
     ${sw('spell','Sprawdzanie pisowni','Podkreślanie błędów przez przeglądarkę.')}
     ${sw('hyphen','Dzielenie wyrazów','Automatyczne przenoszenie słów do następnego wiersza (z myślnikiem). Najlepiej wygląda z justowaniem.')}
@@ -1661,7 +1671,7 @@ $('#lookBody').addEventListener('click',e=>{
 });
 $('#lookBody').addEventListener('input',e=>{
   const k=e.target.dataset.k;if(!k)return;
-  const v=e.target.type==='checkbox'?e.target.checked:+e.target.value;
+  const v=e.target.tagName==='SELECT'?e.target.value:(e.target.type==='checkbox'?e.target.checked:+e.target.value);
   S.settings[k]=v;
   if(e.target.type==='range'){const u=k==='lh'?'':(k==='size'||k==='width'?' px':'');$('output',e.target.parentElement).textContent=v+u}
   applySettings();scheduleSave();
