@@ -1,6 +1,6 @@
 /* Pióro — service worker: działanie offline.
    Zmień VERSION przy każdej większej aktualizacji, żeby wymusić odświeżenie pamięci podręcznej. */
-const VERSION = 'pioro-v4';
+const VERSION = 'pioro-v6';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {

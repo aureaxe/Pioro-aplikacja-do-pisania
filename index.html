@@ -460,9 +460,21 @@ body.rdj .rd-flow p,body.rdj .rd-flow div,body.rdj .rd-flow li,body.rdj .rd-flow
 .lg-row{display:flex;align-items:center;gap:10px;padding:8px 0}
 .lg-row+.lg-row{border-top:1px solid var(--line)}
 .lg-t{flex:1;min-width:0;font-size:14px;overflow-wrap:anywhere}
-.rel-legend{position:absolute;left:10px;bottom:10px;max-width:62%;display:flex;flex-direction:column;gap:5px;padding:9px 12px;border-radius:14px;background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--stroke);box-shadow:var(--shadow);font-size:12.5px;pointer-events:none;color:var(--text)}
-.rel-legend b{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .lg-it{display:flex;align-items:center;gap:8px}
+.rel-legend{position:absolute;left:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:5;max-width:min(80%,330px);display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:4px;border-radius:14px;background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--stroke);box-shadow:var(--shadow);font-size:12.5px;color:var(--text)}
+.lg-head{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:10px;font-size:13px;font-weight:600;text-align:left}
+.lg-head .ic{width:16px;height:16px}
+.lg-n{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--hover);font-size:11px;display:inline-grid;place-items:center;color:var(--muted)}
+.lg-chev{margin-left:auto;display:grid;place-items:center}
+.lg-chev .ic{width:15px;height:15px;transition:transform .2s}
+.lg-chev.up .ic{transform:rotate(180deg)}
+.lg-list{display:flex;flex-direction:column;gap:8px;padding:4px 8px 8px;max-height:42vh;overflow:auto}
+.lg-empty{color:var(--muted);font-size:12.5px;line-height:1.4}
+.lg-list .btn{align-self:flex-start}
+.p-avw{position:relative;flex:none}
+.p-avb{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;pointer-events:none;border:2px solid var(--page,#fff)}
+.p-avb .ic{width:11px;height:11px}
+.p-foot{display:flex;justify-content:center;padding:6px 0 18px}
 .rel-zoom{position:absolute;right:10px;top:10px;display:flex;align-items:center;gap:2px;padding:3px;border-radius:14px;background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--stroke);box-shadow:var(--shadow)}
 .rel-zoom .ib.txt{width:auto;min-width:46px}
 
@@ -769,10 +781,7 @@ textarea.in:focus{border-color:var(--accent)}
     <div class="rel-btns">
       <button class="btn primary" id="relAdd"><i data-i="plus"></i>Postać</button>
       <button class="btn" id="relProf" hidden><i data-i="user"></i>Profil</button>
-      <button class="btn" id="relEdit" hidden><i data-i="edit"></i>Edytuj</button>
-      <button class="btn" id="relLink" hidden><i data-i="link"></i><span id="relLinkT">Połącz z…</span></button>
       <button class="btn" id="relDel" hidden><i data-i="trash"></i>Usuń z rozdziału</button>
-      <button class="btn" id="relLeg"><i data-i="list"></i>Legenda</button>
       <button class="btn" id="relCopy" hidden><i data-i="copy"></i>Z poprzedniego rozdziału</button>
     </div>
   </div>
@@ -896,6 +905,7 @@ const ICONS={
  alignCenter:'<line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="19" x2="5" y1="18" y2="18"/>',
  alignRight:'<line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="9" y1="12" y2="12"/><line x1="21" x2="7" y1="18" y2="18"/>',
  alignJustify:'<line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="3" y1="12" y2="12"/><line x1="21" x2="3" y1="18" y2="18"/>',
+ voice:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
  asterisk:'<path d="M12 6v12"/><path d="M17.196 9 6.804 15"/><path d="m6.804 9 10.392 6"/>',
  eraser:'<path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/>',
  printer:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/>',
@@ -923,7 +933,7 @@ const THEMES=[
  {id:'paper',name:'Papier',page:'#f8f1de',ink:'#3a2f22',meta:'#efe5cf'},
  {id:'dark',name:'Ciemny',page:'#1b1e2a',ink:'#d7dae3',meta:'#0e1120'}
 ];
-const DEFAULTS={theme:'light',font:'sans',size:18,lh:1.7,width:720,indent:false,typewriter:false,smart:true,spell:true,hyphen:true,rdJustify:true};
+const DEFAULTS={theme:'light',font:'sans',size:18,lh:1.7,width:720,indent:false,typewriter:false,smart:true,spell:true,hyphen:true,rdJustify:true,voices:true};
 
 const WORD_RE=/[\p{L}\p{N}]+(?:[’'\-][\p{L}\p{N}]+)*/gu;
 const countWords=t=>(t.match(WORD_RE)||[]).length;
@@ -947,6 +957,7 @@ function sanitize(html){
         if(ALLOWED.has(tag)){
           const el=document.createElement(tag);
           if(tag==='FIGURE')el.className='fig';
+          if(tag==='SPAN'){const sp=n.getAttribute('data-sp');if(sp&&/^[\w-]{1,48}$/.test(sp)){el.className='sp';el.setAttribute('data-sp',sp)}}
           const ta=n.style&&n.style.textAlign;
           if(ta&&['left','right','center','justify'].includes(ta))el.style.textAlign=ta;
           const tl=n.style&&n.style.textAlignLast;if(tl&&['left','right','center'].includes(tl))el.style.textAlignLast=tl;
@@ -955,6 +966,12 @@ function sanitize(html){
       }
     });
   })(tpl.content,out);
+  out.querySelectorAll('span[data-sp]').forEach(sp=>{
+    if(!sp.parentNode)return;
+    if(!sp.textContent&&!sp.querySelector('img,br')){sp.remove();return}
+    let n=sp.nextSibling;
+    while(n&&n.nodeType===1&&n.tagName==='SPAN'&&n.getAttribute('data-sp')===sp.getAttribute('data-sp')){while(n.firstChild)sp.appendChild(n.firstChild);n.remove();n=sp.nextSibling}
+  });
   return out.innerHTML;
 }
 
@@ -1006,6 +1023,115 @@ function selBlocks(){
   let a=[...editor.querySelectorAll(q)].filter(el=>r.intersectsNode(el)&&!el.querySelector(q));
   if(!a.length){const b=blockOf(r.startContainer);if(b&&b!==editor)a=[b]}
   return a;
+}
+/* ---------- głosy postaci: kolor wypowiedzi z koloru postaci ---------- */
+function voiceCss(){
+  let st=document.getElementById('voiceCss');
+  if(!st){st=document.createElement('style');st.id='voiceCss';document.head.appendChild(st)}
+  let cast=[];try{cast=P().cast||[]}catch(e){}
+  const css=cast.map(c=>{const id=String(c.id).replace(/["\\]/g,''),h=rcol(c.color);
+    return `body:not(.novoice) :is(.editor,.rd-flow) .sp[data-sp="${id}"]{color:color-mix(in srgb,${h} 82%,var(--page-ink));background:color-mix(in srgb,${h} 13%,transparent);border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}`}).join('\n');
+  if(st.textContent!==css)st.textContent=css;
+}
+let lastVoice='';
+const voiceSpan=n=>{const el=n&&(n.nodeType===1?n:n.parentElement);return el&&el.closest?el.closest('span.sp'):null};
+async function pickVoice(){
+  const sel=getSelection();
+  if(!sel.rangeCount||!editor.contains(sel.getRangeAt(0).commonAncestorContainer)){toast('Zaznacz wypowiedź albo ustaw kursor w akapicie.');return}
+  const cast=P().cast;
+  if(!cast.length){toast('Najpierw dodaj postacie w drzewie relacji.');return}
+  const saved=sel.getRangeAt(0).cloneRange();
+  const v=await dialog({title:'Czyj to głos?',cancel:null,ok:'Zamknij',
+    html:`<p class="m-text" style="margin:0 0 12px">Zaznacz wypowiedź (albo ustaw kursor w akapicie, a pokoloruje się cały akapit) i wybierz postać. Kolor pochodzi z drzewa relacji.</p><div class="chips">${cast.map(c=>`<button class="rchip${c.id===lastVoice?' on':''}" data-pick="${c.id}"><span class="rav sm" style="--c:${rcol(c.color)}">${avHtml(c)}</span><span>${esc(c.name||'Bez imienia')}</span></button>`).join('')}<button class="rchip" data-pick="-" style="padding:9px 14px"><span>Bez głosu (narracja)</span></button></div>`});
+  if(!v||!v.pick)return;
+  editor.focus();
+  const s2=getSelection();s2.removeAllRanges();s2.addRange(saved);
+  const id=v.pick==='-'?'':v.pick;
+  if(id&&!castOf(id))return;
+  if(id)lastVoice=id;
+  applyVoice(id);
+}
+/* pozycje w bloku liczymy jako przesunięcia znaków, bo DOM zmienia się w trakcie */
+function vPoint(block,off){
+  const w=document.createTreeWalker(block,NodeFilter.SHOW_TEXT);let n,acc=0,last=null;
+  while((n=w.nextNode())){const l=n.nodeValue.length;if(off<=acc+l)return[n,off-acc];acc+=l;last=n}
+  return last?[last,last.nodeValue.length]:[block,block.childNodes.length];
+}
+function vEmpty(n1,o1,n2,o2){const r=document.createRange();r.setStart(n1,o1);r.setEnd(n2,o2);return !r.toString()}
+const vIdx=n=>[...n.parentNode.childNodes].indexOf(n);
+function vNorm(block,p){
+  let [n,o]=p;
+  for(let g=0;g<8;g++){
+    const sp=voiceSpan(n);if(!sp||!block.contains(sp))break;
+    if(vEmpty(sp,0,n,o)){n=sp.parentNode;o=vIdx(sp)}
+    else if(vEmpty(n,o,sp,sp.childNodes.length)){n=sp.parentNode;o=vIdx(sp)+1}
+    else break;
+  }
+  return[n,o];
+}
+function vSplit(block,off){
+  for(let g=0;g<8;g++){
+    const [n,o]=vPoint(block,off),sp=voiceSpan(n);
+    if(!sp||!block.contains(sp))return;
+    if(vEmpty(sp,0,n,o)||vEmpty(n,o,sp,sp.childNodes.length))return;
+    const r=document.createRange();r.setStart(n,o);r.setEnd(sp,sp.childNodes.length);
+    const tail=sp.cloneNode(false);tail.appendChild(r.extractContents());sp.after(tail);
+  }
+}
+function vMerge(sp){
+  const same=x=>x&&x.nodeType===1&&x.matches&&x.matches('span.sp')&&x.dataset.sp===sp.dataset.sp;
+  const p=sp.previousSibling;
+  if(same(p)){while(sp.firstChild)p.appendChild(sp.firstChild);sp.remove();sp=p}
+  let n=sp.nextSibling;
+  while(same(n)){while(n.firstChild)sp.appendChild(n.firstChild);n.remove();n=sp.nextSibling}
+  return sp;
+}
+const VU={top:null,redo:null};
+function vuReset(){VU.top=VU.redo=null}
+function vuSwap(h){editor.innerHTML=h;onEdit()}
+function vuUndo(){if(!VU.top)return false;vuSwap(VU.top.before);VU.redo=VU.top;VU.top=null;return true}
+function vuRedo(){if(!VU.redo)return false;vuSwap(VU.redo.after);VU.top=VU.redo;VU.redo=null;return true}
+function applyVoice(id){
+  const s=getSelection();if(!s.rangeCount)return;
+  const r=s.getRangeAt(0);
+  const offOf=(block,n,o)=>{const q=document.createRange();q.setStart(block,0);q.setEnd(n,o);return q.toString().length};
+  const jobs=[];
+  if(r.collapsed){
+    const sp=voiceSpan(r.startContainer);
+    const b=sp?blockOf(sp):blockOf(r.startContainer);
+    if(!b||b===editor)return;
+    if(sp){const q=document.createRange();q.selectNode(sp);jobs.push({b,a:offOf(b,q.startContainer,q.startOffset),z:offOf(b,q.endContainer,q.endOffset)})}
+    else jobs.push({b,a:0,z:b.textContent.length});
+  }else{
+    selBlocks().forEach(b=>{
+      const q=document.createRange();q.selectNodeContents(b);
+      if(r.compareBoundaryPoints(Range.START_TO_START,q)>0)q.setStart(r.startContainer,r.startOffset);
+      if(r.compareBoundaryPoints(Range.END_TO_END,q)<0)q.setEnd(r.endContainer,r.endOffset);
+      const a=offOf(b,q.startContainer,q.startOffset),z=offOf(b,q.endContainer,q.endOffset);
+      if(z>a&&q.toString().trim())jobs.push({b,a,z});
+    });
+  }
+  if(!jobs.length){toast(id?'Nie ma tu tekstu do pokolorowania.':'Tu nie ma koloru głosu.');return}
+  const before=editor.innerHTML;let lastSp=null,lastEnd=null;
+  jobs.forEach(({b,a,z})=>{
+    vSplit(b,z);vSplit(b,a);
+    let S=vNorm(b,vPoint(b,a)),E=vNorm(b,vPoint(b,z));
+    let q=document.createRange();q.setStart(S[0],S[1]);q.setEnd(E[0],E[1]);
+    [...b.querySelectorAll('span.sp')].filter(sp=>q.intersectsNode(sp)).forEach(sp=>sp.replaceWith(...sp.childNodes));
+    S=vNorm(b,vPoint(b,a));E=vNorm(b,vPoint(b,z));
+    q=document.createRange();q.setStart(S[0],S[1]);q.setEnd(E[0],E[1]);
+    if(id){
+      const sp=document.createElement('span');sp.className='sp';sp.setAttribute('data-sp',id);
+      sp.appendChild(q.extractContents());q.insertNode(sp);
+      lastSp=vMerge(sp);
+    }else lastEnd=E;
+  });
+  const nr=document.createRange();
+  if(lastSp)nr.setStartAfter(lastSp);else if(lastEnd)nr.setStart(lastEnd[0],lastEnd[1]);else return;
+  nr.collapse(true);s.removeAllRanges();s.addRange(nr);
+  const after=editor.innerHTML;
+  onEdit();
+  if(after!==before){VU.top={before,after};VU.redo=null}
 }
 function justify(last){
   document.execCommand('justifyFull');
@@ -1124,7 +1250,7 @@ function applySettings(){
   body.classList.toggle('indent',!!s.indent);body.classList.toggle('tw',!!s.typewriter);
   editor.spellcheck=!!s.spell;
   $('meta[name=theme-color]').content=t.meta;
-  body.classList.toggle('nohyph',!s.hyphen);body.classList.toggle('rdj',!!s.rdJustify);
+  body.classList.toggle('nohyph',!s.hyphen);body.classList.toggle('novoice',!s.voices);voiceCss();body.classList.toggle('rdj',!!s.rdJustify);
   if(R.open)rdRefreshD();
 }
 
@@ -1135,7 +1261,7 @@ const TOOLS=[
  [{c:'block:h1',x:'H1',t:'Nagłówek główny'},{c:'block:h2',x:'H2',t:'Nagłówek'},{c:'block:blockquote',i:'quote',t:'Cytat'}],
  [{c:'insertUnorderedList',i:'list',t:'Lista punktowana',s:1},{c:'insertOrderedList',i:'listOrdered',t:'Lista numerowana',s:1}],
  [{c:'justifyLeft',i:'alignLeft',t:'Do lewej',s:1},{c:'justifyCenter',i:'alignCenter',t:'Wyśrodkuj',s:1},{c:'justifyRight',i:'alignRight',t:'Do prawej',s:1},{c:'just:left',i:'justL',t:'Wyjustuj, ostatni wiersz do lewej'},{c:'just:center',i:'justC',t:'Wyjustuj, ostatni wiersz na środku'},{c:'just:right',i:'justR',t:'Wyjustuj, ostatni wiersz do prawej'}],
- [{c:'image',i:'image',t:'Wstaw zdjęcie'},{c:'scene',i:'asterisk',t:'Przerwa między scenami'},{c:'clear',i:'eraser',t:'Wyczyść formatowanie'}]
+ [{c:'image',i:'image',t:'Wstaw zdjęcie'},{c:'voice',i:'voice',t:'Głos postaci: pokoloruj wypowiedź'},{c:'scene',i:'asterisk',t:'Przerwa między scenami'},{c:'clear',i:'eraser',t:'Wyczyść formatowanie'}]
 ];
 const STATE_CMDS=new Set(['bold','italic','underline','strikeThrough','insertUnorderedList','insertOrderedList','justifyLeft','justifyCenter','justifyRight','justifyFull']);
 function buildToolbar(){
@@ -1149,8 +1275,11 @@ function toggleBlock(tag){
 }
 function run(c){
   editor.focus();
+  if(c==='undo'&&vuUndo()){updateToolbar();return}
+  if(c==='redo'&&vuRedo()){updateToolbar();return}
   if(c.startsWith('block:'))toggleBlock(c.slice(6));
   else if(c==='image')pickImage();
+  else if(c==='voice')pickVoice();
   else if(c.startsWith('just:'))justify(c.slice(5));
   else if(c==='scene')document.execCommand('insertHorizontalRule');
   else if(c==='clear'){document.execCommand('removeFormat');document.execCommand('formatBlock',false,'p')}
@@ -1183,6 +1312,13 @@ function updateEmpty(){
 }
 const statsD=debounce(()=>updateStats(),120);
 function onEdit(){ensureBlock();normAlign();updateEmpty();statsD();scheduleSave();if(F.open)findD()}
+editor.addEventListener('input',vuReset);
+editor.addEventListener('keydown',e=>{
+  if(!(e.ctrlKey||e.metaKey)||e.altKey)return;
+  const k=e.key.toLowerCase();
+  if(k==='z'&&!e.shiftKey){if(vuUndo())e.preventDefault()}
+  else if(k==='y'||(k==='z'&&e.shiftKey)){if(vuRedo())e.preventDefault()}
+});
 editor.addEventListener('input',()=>{onEdit();twScroll()});
 editor.addEventListener('focus',()=>{ensureBlock();updateEmpty()});
 editor.addEventListener('keyup',e=>{if(['ArrowUp','ArrowDown','PageUp','PageDown','Enter'].includes(e.key))twScroll()});
@@ -1281,6 +1417,7 @@ function openChapter(id,opt={}){
   const p=P();const ch=p.chapters.find(c=>c.id===id)||p.chapters[0];
   p.currentChapter=ch.id;
   editorReady=false;
+  voiceCss();vuReset();
   editor.innerHTML=sanitize(ch.html)||'<p><br></p>';prepFigs();
   editorReady=true;
   chTitle.value=ch.title;renderNotes();
@@ -1510,6 +1647,7 @@ function renderLook(){
   <div class="sec"><h3>Pisanie</h3>
     ${sw('indent','Wcięcia akapitów','Pierwszy wiersz każdego akapitu wcięty, jak w drukowanych książkach.')}
     ${sw('smart','Polska typografia','Automatyczne „cudzysłowy”, a po wpisaniu „-” i spacji na początku akapitu — pauza dialogowa.')}
+    ${sw('voices','Kolory głosów postaci','Wypowiedzi mają kolor postaci z drzewa relacji. Zmiana koloru postaci zmienia go w całej książce.')}
     ${sw('typewriter','Tryb maszyny do pisania','Wiersz z kursorem trzyma się mniej więcej na środku ekranu.')}
     ${sw('spell','Sprawdzanie pisowni','Podkreślanie błędów przez przeglądarkę.')}
     ${sw('hyphen','Dzielenie wyrazów','Automatyczne przenoszenie słów do następnego wiersza (z myślnikiem). Najlepiej wygląda z justowaniem.')}
@@ -2019,6 +2157,7 @@ async function bookDataFlow(id){
 const R={open:false,ch:0,page:0,pages:1,W:0,G:40};
 const rdFlow=$('#rdFlow'),rdView=$('#rdView');
 function rdHtml(c){
+  voiceCss();
   const d=document.createElement('div');
   d.innerHTML=`<h2 class="rd-ct">${esc(c.title||'Bez tytułu')}</h2>`+sanitize(c.html);
   if(S.settings.hyphen)hyphNode(d);
@@ -2199,7 +2338,7 @@ function relRender(){
   relNodes.innerHTML=r.nodes.map(n=>{
     const c=cast.get(n.id);if(!c)return '';
     const sel=n.id===REL.sel;
-    return `<div class="rn${sel?' sel':''}${n.id===REL.from?' from':''}" data-id="${n.id}" style="left:${n.x}px;top:${n.y}px"><div class="rav" style="--c:${rcol(c.color)}">${avHtml(c)}</div><div class="rname">${esc(c.name||'Bez imienia')}</div>${sel&&!REL.from?`<button class="rn-h" title="Przeciągnij na inną postać, aby je połączyć" aria-label="Połącz z inną postacią">${svg('link')}</button>`:''}</div>`;
+    return `<div class="rn${sel?' sel':''}" data-id="${n.id}" style="left:${n.x}px;top:${n.y}px"><div class="rav" style="--c:${rcol(c.color)}">${avHtml(c)}</div><div class="rname">${esc(c.name||'Bez imienia')}</div>${sel?`<button class="rn-h" title="Przeciągnij na inną postać, aby je połączyć" aria-label="Połącz z inną postacią">${svg('link')}</button>`:''}</div>`;
   }).join('');
   drawLinks();drawLegend();relBar();relHead();
   const em=$('#relEmpty');em.hidden=r.nodes.length>0;
@@ -2224,16 +2363,10 @@ function relHead(){
   $('#relPrev').disabled=REL.ch<=0;$('#relNext').disabled=REL.ch>=p.chapters.length-1;
 }
 function relBar(){
-  const p=P(),r=chRel(),s=!!REL.sel&&!REL.from;
-  $('#relProf').hidden=!s;$('#relEdit').hidden=!s;$('#relDel').hidden=!s;
-  $('#relLink').hidden=!(s||REL.from);
-  $('#relLinkT').textContent=REL.from?'Anuluj łączenie':'Połącz z…';
-  $('#relLink').classList.toggle('on',!!REL.from);
-  $('#relCopy').hidden=!(REL.ch>0&&!REL.sel&&!REL.from);
-  $('#relAdd').hidden=!!REL.from;$('#relLeg').hidden=!!REL.from;
-  const nm=id=>(castOf(id)||{}).name||'Bez imienia';
-  $('#relHint').textContent=REL.from?`Dotknij postaci, z którą chcesz połączyć „${nm(REL.from)}”`
-    :s?'Przeciągnij kółko z ikoną łącza na inną postać albo użyj „Połącz z…”'
+  const p=P(),r=chRel(),s=!!REL.sel;
+  $('#relProf').hidden=!s;$('#relDel').hidden=!s;
+  $('#relCopy').hidden=!(REL.ch>0&&!s);
+  $('#relHint').textContent=s?'Przeciągnij kółko z ikoną łącza na inną postać, aby je połączyć'
     :!p.cast.length?'Dodaj pierwszą postać przyciskiem poniżej'
     :r.nodes.length<2?'Dodaj kolejną postać do tego rozdziału, aby móc je połączyć'
     :'Dotknij postaci, aby ją zaznaczyć. Dotknij linii, aby zmienić relację';
@@ -2319,18 +2452,18 @@ function rcPrev(){
   el.innerHTML=rcImg?`<img src="${rcImg}" alt="">`:esc(initials($('#f_name')?$('#f_name').value:''));
   $('#rcCropBtn').hidden=!rcSrc;$('#rcClrBtn').hidden=!rcSrc;
 }
-async function charFlow(c){
-  const isNew=!c;
+async function charFlow(c,opt){
+  const isNew=!c,prof=!!(opt&&opt.profile);
   rcImg=c?c.img:'';rcSrc=c?(c.src||c.img):'';rcCrop=c?{...c.crop}:{z:1,px:0,py:0};rcCol=c?c.color:Math.floor(Math.random()*RCOL.length);
   let purge=false;
-  const pr=dialog({title:isNew?'Nowa postać':'Postać',
+  const pr=dialog({title:isNew?'Nowa postać':(prof?'Zdjęcie i kolor':'Postać'),
     html:`<div class="rc-top"><div class="rav rc-prev" id="rcPrev"></div><div class="rc-btns"><button class="btn sm" data-rp="pick">${svg('image')}Zdjęcie</button><button class="btn sm" data-rp="crop" id="rcCropBtn">Kadruj</button><button class="btn sm" data-rp="clr" id="rcClrBtn">Usuń zdjęcie</button></div></div>`
-      +fieldHtml([{id:'name',label:'Imię i nazwisko',value:c?c.name:'',ph:'Np. Anna Kowalska'}])
+      +(prof?'':fieldHtml([{id:'name',label:'Imię i nazwisko',value:c?c.name:'',ph:'Np. Anna Kowalska'}]))
       +`<div class="fld"><span>Kolor</span><div class="rcols">${RCOL.map((x,i)=>`<button class="rcol${i===rcCol?' on':''}" data-rc="${i}" style="background:${x}" aria-label="Kolor ${i+1}"></button>`).join('')}</div></div>`
-      +(isNew?'':`<button class="btn danger sm" id="rcDel">${svg('trash')}Usuń z całej książki</button>`),
-    ok:'Zapisz',collect:()=>({name:$('#f_name').value.trim(),img:rcImg,src:rcSrc,crop:rcCrop,color:rcCol})});
+      +(isNew||prof?'':`<button class="btn danger sm" id="rcDel">${svg('trash')}Usuń z całej książki</button>`),
+    ok:'Zapisz',collect:()=>({name:$('#f_name')?$('#f_name').value.trim():c.name,img:rcImg,src:rcSrc,crop:rcCrop,color:rcCol})});
   rcPrev();
-  if(!isNew)$('#rcDel').onclick=()=>{purge=true;dialogDone(null)};
+  if(!isNew&&!prof)$('#rcDel').onclick=()=>{purge=true;dialogDone(null)};
   const v=await pr;
   if(purge){purgeChar(c.id);return}
   if(!v)return;
@@ -2339,7 +2472,7 @@ async function charFlow(c){
     P().cast.push({id,name:v.name,color:v.color,img:v.img,src:v.src,crop:v.crop});
     chRel().nodes.push({id,x:pt.x,y:pt.y});REL.sel=id;
   }else Object.assign(c,{name:v.name,color:v.color,img:v.img,src:v.src,crop:v.crop});
-  relRender();scheduleSave();
+  relRender();voiceCss();scheduleSave();
 }
 $('#dlgBody').addEventListener('click',e=>{
   const pk=e.target.closest('[data-pick]');
@@ -2375,6 +2508,7 @@ async function purgeChar(id){
   const p=P();p.cast=p.cast.filter(x=>x.id!==id);
   p.chapters.forEach(ch=>{ch.rel.nodes=ch.rel.nodes.filter(n=>n.id!==id);ch.rel.links=ch.rel.links.filter(l=>l.a!==id&&l.b!==id)});
   if(REL.sel===id)REL.sel=null;
+  if(PF.id===id)closeProfile();
   relRender();scheduleSave();
 }
 function unplace(id){
@@ -2429,7 +2563,6 @@ function startLink(a,b){
   linkFlow(ex||{a,b,ab:'',ba:''},!ex);
 }
 function relTap(id){
-  if(REL.from){if(REL.from===id){REL.from=null;relRender()}else startLink(REL.from,id);return}
   REL.sel=REL.sel===id?null:id;relRender();
 }
 
@@ -2451,7 +2584,7 @@ function closeProfile(){
 function profHeadHtml(c){
   if(PF.ro)return `<div class="p-card"><div class="p-head"><div class="rav p-av" style="--c:${rcol(c.color)}">${avHtml(c)}</div>
   <div class="p-fields"><div class="p-name">${esc(c.name||'Bez imienia')}</div><div class="p-chips">${c.age?`<span class="p-chip">Wiek: <b>${esc(c.age)}</b></span>`:''}${c.job?`<span class="p-chip">${esc(c.job)}</span>`:''}</div></div></div>${c.bio?`<p class="p-bio">${esc(c.bio)}</p>`:''}</div>`;
-  return `<div class="p-card"><div class="p-head"><button class="rav p-av" id="pAv" style="--c:${rcol(c.color)}" aria-label="Zmień zdjęcie i kolor postaci">${avHtml(c)}</button>
+  return `<div class="p-card"><div class="p-head"><div class="p-avw"><button class="rav p-av" id="pAv" style="--c:${rcol(c.color)}" aria-label="Zmień zdjęcie i kolor postaci">${avHtml(c)}</button><span class="p-avb">${svg('edit')}</span></div>
   <div class="p-fields"><input class="p-in" id="pName" placeholder="Imię i nazwisko" value="${esc(c.name)}" maxlength="80">
   <div class="p-row2"><input class="p-in" id="pAge" placeholder="Wiek" inputmode="numeric" value="${esc(c.age)}" maxlength="12"><input class="p-in" id="pJob" placeholder="Zawód" value="${esc(c.job)}" maxlength="60"></div></div></div>
   <textarea class="p-in" id="pBio" rows="3" placeholder="Opis, cechy, charakter…" maxlength="2000" style="margin-top:10px">${esc(c.bio)}</textarea></div>`;
@@ -2459,7 +2592,7 @@ function profHeadHtml(c){
 function profBuild(){
   const c=pc();if(!c)return;
   $('#profTitle').textContent=c.name||'Profil postaci';
-  profScroll.innerHTML=`<div id="headCard">${profHeadHtml(c)}</div><div class="p-card" id="figCard"></div>`;
+  profScroll.innerHTML=`<div id="headCard">${profHeadHtml(c)}</div><div class="p-card" id="figCard"></div>${PF.ro?'':`<div class="p-foot"><button class="btn danger sm" id="pPurge">${svg('trash')}Usuń postać z całej książki</button></div>`}`;
   $$('textarea',profScroll).forEach(autoGrowP);
   figCardRender();
 }
@@ -2551,7 +2684,8 @@ profScroll.addEventListener('input',e=>{
 });
 profScroll.addEventListener('click',async e=>{
   const c=pc();if(!c)return;
-  if(e.target.closest('#pAv')){await charFlow(c);if(PF.id){$('#headCard').innerHTML=profHeadHtml(c);$$('textarea',profScroll).forEach(autoGrowP);$('#profTitle').textContent=c.name||'Profil postaci'}return}
+  if(e.target.closest('#pPurge')){purgeChar(c.id);return}
+  if(e.target.closest('#pAv')){await charFlow(c,{profile:true});if(PF.id){$('#headCard').innerHTML=profHeadHtml(c);$$('textarea',profScroll).forEach(autoGrowP);$('#profTitle').textContent=c.name||'Profil postaci'}return}
   const cd=e.target.closest('.co-card');
   if(cd){openFig();openDetail(cd.dataset.id);return}
   const a=e.target.closest('[data-fa]');if(!a)return;
@@ -2884,8 +3018,12 @@ const lineSample=o=>`<span class="ls-prev"><svg width="72" height="16" viewBox="
 function drawLegend(){
   const p=P(),used=new Set(chRel().links.map(l=>l.lg).filter(Boolean));
   const es=p.legend.filter(e=>used.has(e.id)),el=$('#relLegend');
-  el.hidden=!es.length;
-  el.innerHTML=es.length?'<b>Legenda</b>'+es.map(e=>`<div class="lg-it">${lineSample(e)}<span>${esc(e.label||'Bez opisu')}</span></div>`).join(''):'';
+  const show=es.length>0||!REL.ro;
+  el.hidden=!show;
+  if(!show){el.innerHTML='';return}
+  const open=!!REL.leg;
+  el.innerHTML=`<button class="lg-head" data-lgt aria-expanded="${open}">${svg('list')}<span>Legenda</span>${es.length?`<span class="lg-n">${es.length}</span>`:''}<span class="lg-chev${open?' up':''}">${svg('chevDown')}</span></button>`
+    +(open?`<div class="lg-list">${es.length?es.map(e=>`<div class="lg-it">${lineSample(e)}<span>${esc(e.label||'Bez opisu')}</span></div>`).join(''):'<div class="lg-empty">Żadna linia w tym rozdziale nie ma wpisu z legendy.</div>'}${REL.ro?'':`<button class="btn sm" data-lge>${svg('edit')}Edytuj legendę</button>`}</div>`:'');
 }
 const LK={st:'solid',col:'',lg:''};
 const styleGridHtml=()=>`<div class="stgrid">${LINE_STYLES.map(([k,n])=>`<button class="stbtn${LK.st===k?' on':''}" data-st="${k}" type="button">${lineSample({st:k,col:LK.col})}<span>${n}</span></button>`).join('')}</div>`;
@@ -2989,7 +3127,10 @@ $('#relZm').addEventListener('click',()=>relZoom(REL.z/1.25));
 $('#relZp').addEventListener('click',()=>relZoom(REL.z*1.25));
 $('#relZoomPct').addEventListener('click',()=>relZoom(1));
 $('#relFit').addEventListener('click',relFit);
-$('#relLeg').addEventListener('click',legendFlow);
+$('#relLegend').addEventListener('click',e=>{
+  if(e.target.closest('[data-lgt]')){REL.leg=!REL.leg;drawLegend();return}
+  if(e.target.closest('[data-lge]'))legendFlow();
+});
 
 /* ---------- przeciąganie: postacie, linie i plansza ---------- */
 let rdrag=null,lk=null,pan=null,panMoved=false;
@@ -3028,7 +3169,7 @@ relNodes.addEventListener('pointermove',e=>{
 const relUp=e=>{
   if(lk&&e.pointerId===lk.pid){
     const d=lk;lk=null;if(d.line)d.line.remove();clearTgt();
-    if(!d.moved){if(e.type==='pointerup'){REL.from=d.id;relRender()}return}
+    if(!d.moved){if(e.type==='pointerup')toast('Przeciągnij to kółko na inną postać, aby je połączyć');return}
     if(e.type!=='pointerup')return;
     const t=nodeAt(e.clientX,e.clientY);
     if(t&&t.dataset.id!==d.id)startLink(d.id,t.dataset.id);
@@ -3073,16 +3214,10 @@ $('#relClose').addEventListener('click',closeRel);
 $('#relPrev').addEventListener('click',()=>relGo(-1));
 $('#relNext').addEventListener('click',()=>relGo(1));
 $('#relAdd').addEventListener('click',addFlow);
-$('#relEdit').addEventListener('click',()=>{const c=castOf(REL.sel);if(c)charFlow(c)});
 $('#relProf').addEventListener('click',()=>{if(REL.sel)openProfile(REL.sel,false)});
 relNodes.addEventListener('dblclick',e=>{const n=e.target.closest('.rn');if(n&&!REL.ro&&!REL.from)openProfile(n.dataset.id,false)});
 relNodes.addEventListener('click',e=>{if(!REL.ro)return;const n=e.target.closest('.rn');if(n)openProfile(n.dataset.id,true)});
 $('#relDel').addEventListener('click',()=>{if(REL.sel)unplace(REL.sel)});
-$('#relLink').addEventListener('click',()=>{
-  if(REL.from){REL.from=null}
-  else if(REL.sel)REL.from=REL.sel;
-  relRender();
-});
 $('#relCopy').addEventListener('click',async()=>{
   const p=P();if(REL.ch<1)return;const cur=chRel(),prev=p.chapters[REL.ch-1];
   if(cur.nodes.length||cur.links.length){
